@@ -6,10 +6,9 @@ const About = () => {
       <div className="about-me">
         <h3 className="title">About Me</h3>
         <p className="para">
-          Innovative B.Tech graduate in Computer Science and founder of VoxentraAI with a strong passion for developing impactful,
-          AI-driven solutions. Experienced in full-stack web development and computer vision, demonstrated through a portfolio of
-          complex projects. Proven leader and community builder as a Core Member of the Google Developer Student Clubs
-          (GDSC), dedicated to fostering technical growth and collaboration.
+          Performance-driven Full-Stack Engineer & AI Automation Specialist with a strong background in Machine Learning,
+          type-safe TypeScript web apps, and multi-agent systems. Proven track record at CodeAther and VoxentraAI in
+          leading legacy migrations, workflow automation, and custom LLM benchmarking pipelines.
         </p>
       </div>
     </div>

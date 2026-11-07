@@ -15,7 +15,11 @@ const Contact = () => {
               </a>
             </p>
             <h4>Education</h4>
-            <p>B.Tech in Computer Science</p>
+            <p>
+              B.Tech in Computer Science & Engineering
+              <br />
+              Satyug Darshan Institute of Engineering & Technology
+            </p>
           </div>
           <div className="contact-box">
             <h4>Social</h4>

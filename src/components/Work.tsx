@@ -3,31 +3,51 @@ import "./styles/Work.css";
 import WorkImage from "./WorkImage";
 import { MdArrowBack, MdArrowForward } from "react-icons/md";
 
-const projects = [
+type Project = {
+  title: string;
+  category: string;
+  tools: string;
+  image: string;
+  description: string;
+  link?: string;
+};
+
+const projects: Project[] = [
+  {
+    title: "Stoodant",
+    category: "Live Online Tuition Platform (Co-founder & CTO)",
+    tools: "Built solo: Website, Parent Dashboard, Teacher Tools, Online Exams",
+    image: "/images/Stoodant.jpg",
+    link: "https://stoodant.com",
+    description: "Co-founded Stoodant, a live online tuition service for Class 4 to 10 students in CBSE and ICSE schools, taught in small batches from 1:1 to 1:20. Single-handedly built the entire platform: the public website, the parent dashboard, the teacher tools and the online exam system behind the scholarship test."
+  },
   {
     title: "FitFuel",
-    category: "AI Fitness Assistant",
-    tools: "React.js, Node.js, Supabase, Ollama",
+    category: "Multi-Model Expert System",
+    tools: "React, TypeScript, Next.js, OpenRouter, Ollama",
     image: "/images/FitFuel.png",
-    description: "The best open-source AI Fitness Assistant. Generates personalized workout and meal plans using local LLMs (Ollama) and Supabase. Zero-cost bio-hacking tool."
+    description: "Built a Mixture of Experts (MoE) routing architecture that parses user prompt semantic intent to dynamically delegate queries to specialized underlying LLMs. Implemented spatial computer vision models to identify dish geometries, mapping outputs into structured, deterministic nutritional datasets. Designed a local sandbox using Ollama for safety guardrails."
   },
   {
-    title: "AI Freelancer Agent",
-    category: "Workflow Automation",
-    tools: "n8n, JavaScript, Gmail/Upwork/Notion API",
+    title: "LAMBDA",
+    category: "Live Attendance Monitoring System",
+    tools: "Python, OpenCV, Firebase, Node.js",
+    image: "/images/LambdaAttendance.png",
+    description: "Designed a high-security hardware-software authentication architecture, binding multi-threaded facial recognition tracking modules with physical RFID reader events. Structured low-latency websocket listeners to sync event telemetry with live Firestore nodes, ensuring instantaneous UI rendering."
+  },
+  {
+    title: "Autonomous Multi-Stage Pipeline",
+    category: "Lead Processing Automation",
+    tools: "n8n, JavaScript, API Integrations",
     image: "/images/JobApplyerAutomation.png",
+    description: "Constructed background data-scraping workflows evaluating incoming listings against developer skill profiles with zero-latency overhead. Devised prompt engineering structures specifically configured to optimize factual context retrieval, preventing generative hallucination in targeted proposals."
   },
   {
-    title: "Luxe Event Management",
-    category: "Event Platform",
-    tools: "React.js, Firebase, Tailwind CSS, Node.js",
-    image: "/images/VictoryLuxeEventManagement.png",
-  },
-  {
-    title: "Driver Distraction Detection System",
-    category: "AI Safety Solution",
+    title: "Real-Time Driver Distraction Tracker",
+    category: "Computer Vision Safety System",
     tools: "Python, OpenCV, TensorFlow, Streamlit",
     image: "/images/DriverDistractionDetection.png",
+    description: "Built an offline convolutional neural network (CNN) model parsing video stream points to identify and trigger metrics signaling distraction. Optimized inference pipeline bottlenecks to stabilize latency metrics below 30ms per frame."
   },
 ];
 
@@ -107,10 +127,25 @@ const Work = () => {
                           <span className="tools-label">Tools & Features</span>
                           <p>{project.tools}</p>
                         </div>
+                        {project.link && (
+                          <a
+                            className="carousel-visit"
+                            href={project.link}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            data-cursor="disable"
+                          >
+                            Visit {project.link.replace(/^https?:\/\//, "")} ↗
+                          </a>
+                        )}
                       </div>
                     </div>
                     <div className="carousel-image-wrapper">
-                      <WorkImage image={project.image} alt={project.title} />
+                      <WorkImage
+                        image={project.image}
+                        alt={project.title}
+                        link={project.link}
+                      />
                     </div>
                   </div>
                 </div>
