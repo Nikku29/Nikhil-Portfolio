@@ -332,3 +332,22 @@
     max-height: 250px;
   }
 }
+.carousel-visit {
+  align-self: flex-start;
+  width: fit-content;
+  display: inline-block;
+  margin-top: 18px;
+  padding: 8px 16px;
+  border: 1px solid #5eead4;
+  border-radius: 999px;
+  color: #5eead4;
+  font-size: 15px;
+  text-decoration: none;
+  transition: background 0.2s, color 0.2s;
+}
+
+.carousel-visit:hover,
+.carousel-visit:focus-visible {
+  background: #5eead4;
+  color: #0b0f17;
+}

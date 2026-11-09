@@ -95,13 +95,16 @@ const WhatIDo = () => {
               </p>
               <h5>Skillset & tools</h5>
               <div className="what-content-flex">
+                <div className="what-tags">TypeScript</div>
+                <div className="what-tags">JavaScript (ES6+)</div>
                 <div className="what-tags">React.js</div>
+                <div className="what-tags">Next.js</div>
                 <div className="what-tags">Node.js</div>
-                <div className="what-tags">JavaScript</div>
+                <div className="what-tags">Express</div>
                 <div className="what-tags">Tailwind CSS</div>
+                <div className="what-tags">Supabase</div>
                 <div className="what-tags">Firebase</div>
                 <div className="what-tags">Git</div>
-                <div className="what-tags">GitHub</div>
               </div>
               <div className="what-arrow"></div>
             </div>
@@ -134,11 +137,14 @@ const WhatIDo = () => {
               <h5>Skillset & tools</h5>
               <div className="what-content-flex">
                 <div className="what-tags">Python</div>
-                <div className="what-tags">TensorFlow</div>
+                <div className="what-tags">Prompt Engineering</div>
+                <div className="what-tags">Multi-Agent Systems</div>
+                <div className="what-tags">LLM Telemetry</div>
+                <div className="what-tags">LangChain</div>
+                <div className="what-tags">n8n Automation</div>
                 <div className="what-tags">OpenCV</div>
+                <div className="what-tags">TensorFlow</div>
                 <div className="what-tags">Streamlit</div>
-                <div className="what-tags">n8n</div>
-                <div className="what-tags">Workflow Automation</div>
               </div>
               <div className="what-arrow"></div>
             </div>
