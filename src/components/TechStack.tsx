@@ -30,6 +30,8 @@ const sphereGeometry = new THREE.SphereGeometry(1, 28, 28);
 
 const spheres = [...Array(30)].map(() => ({
   scale: [0.7, 1, 0.8, 1, 1][Math.floor(Math.random() * 5)],
+  // Pick each sphere's texture once instead of re-rolling on every render.
+  materialIndex: Math.floor(Math.random() * textures.length),
 }));
 
 type SphereProps = {
@@ -50,7 +52,7 @@ function SphereGeo({
   const api = useRef<RapierRigidBody | null>(null);
 
   useFrame((_state, delta) => {
-    if (!isActive) return;
+    if (!isActive || !api.current) return;
     delta = Math.min(0.1, delta);
     const impulse = vec
       .copy(api.current!.translation())
@@ -82,8 +84,6 @@ function SphereGeo({
         args={[0.15 * scale, 0.275 * scale]}
       />
       <mesh
-        castShadow
-        receiveShadow
         scale={scale}
         geometry={sphereGeometry}
         material={material}
@@ -128,6 +128,20 @@ function Pointer({ vec = new THREE.Vector3(), isActive }: PointerProps) {
 
 const TechStack = () => {
   const [isActive, setIsActive] = useState(false);
+  const [inView, setInView] = useState(true);
+  const containerRef = useRef<HTMLDivElement>(null);
+
+  // Stop rendering the WebGL scene entirely while it is off screen.
+  useEffect(() => {
+    const el = containerRef.current;
+    if (!el) return;
+    const observer = new IntersectionObserver(
+      ([entry]) => setInView(entry.isIntersecting),
+      { rootMargin: "200px 0px" }
+    );
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, []);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -148,7 +162,7 @@ const TechStack = () => {
         }, 1000);
       });
     });
-    window.addEventListener("scroll", handleScroll);
+    window.addEventListener("scroll", handleScroll, { passive: true });
     return () => {
       window.removeEventListener("scroll", handleScroll);
     };
@@ -169,11 +183,12 @@ const TechStack = () => {
   }, []);
 
   return (
-    <div className="techstack">
+    <div className="techstack" ref={containerRef}>
       <h2> My Techstack</h2>
 
       <Canvas
-        shadows
+        frameloop={inView ? "always" : "never"}
+        dpr={[1, 1.5]}
         gl={{ alpha: true, stencil: false, depth: false, antialias: false }}
         camera={{ position: [0, 0, 20], fov: 32.5, near: 1, far: 100 }}
         onCreated={(state) => (state.gl.toneMappingExposure = 1.5)}
@@ -185,18 +200,16 @@ const TechStack = () => {
           penumbra={1}
           angle={0.2}
           color="white"
-          castShadow
-          shadow-mapSize={[512, 512]}
         />
         <directionalLight position={[0, 5, -4]} intensity={2} />
         <Physics gravity={[0, 0, 0]}>
-          <Pointer isActive={isActive} />
-          {spheres.map((props, i) => (
+          <Pointer isActive={isActive && inView} />
+          {spheres.map(({ scale, materialIndex }, i) => (
             <SphereGeo
               key={i}
-              {...props}
-              material={materials[Math.floor(Math.random() * materials.length)]}
-              isActive={isActive}
+              scale={scale}
+              material={materials[materialIndex]}
+              isActive={isActive && inView}
             />
           ))}
         </Physics>
@@ -206,7 +219,13 @@ const TechStack = () => {
           environmentRotation={[0, 4, 2]}
         />
         <EffectComposer enableNormalPass={false}>
-          <N8AO color="#0f002c" aoRadius={2} intensity={1.15} />
+          <N8AO
+            color="#0f002c"
+            aoRadius={2}
+            intensity={1.15}
+            halfRes
+            quality="performance"
+          />
         </EffectComposer>
       </Canvas>
     </div>
