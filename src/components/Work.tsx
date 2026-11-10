@@ -17,7 +17,7 @@ const projects: Project[] = [
     title: "Stoodant",
     category: "Live Online Tuition Platform (Co-founder & CTO)",
     tools: "Built solo: Website, Parent Dashboard, Teacher Tools, Online Exams",
-    image: "/images/Stoodant.jpg",
+    image: "/images/Stoodant.webp",
     link: "https://stoodant.com",
     description: "Co-founded Stoodant, a live online tuition service for Class 4 to 10 students in CBSE and ICSE schools, taught in small batches from 1:1 to 1:20. Single-handedly built the entire platform: the public website, the parent dashboard, the teacher tools and the online exam system behind the scholarship test."
   },
@@ -25,28 +25,28 @@ const projects: Project[] = [
     title: "FitFuel",
     category: "Multi-Model Expert System",
     tools: "React, TypeScript, Next.js, OpenRouter, Ollama",
-    image: "/images/FitFuel.png",
+    image: "/images/FitFuel.webp",
     description: "Built a Mixture of Experts (MoE) routing architecture that parses user prompt semantic intent to dynamically delegate queries to specialized underlying LLMs. Implemented spatial computer vision models to identify dish geometries, mapping outputs into structured, deterministic nutritional datasets. Designed a local sandbox using Ollama for safety guardrails."
   },
   {
     title: "LAMBDA",
     category: "Live Attendance Monitoring System",
     tools: "Python, OpenCV, Firebase, Node.js",
-    image: "/images/LambdaAttendance.png",
+    image: "/images/LambdaAttendance.webp",
     description: "Designed a high-security hardware-software authentication architecture, binding multi-threaded facial recognition tracking modules with physical RFID reader events. Structured low-latency websocket listeners to sync event telemetry with live Firestore nodes, ensuring instantaneous UI rendering."
   },
   {
     title: "Autonomous Multi-Stage Pipeline",
     category: "Lead Processing Automation",
     tools: "n8n, JavaScript, API Integrations",
-    image: "/images/JobApplyerAutomation.png",
+    image: "/images/JobApplyerAutomation.webp",
     description: "Constructed background data-scraping workflows evaluating incoming listings against developer skill profiles with zero-latency overhead. Devised prompt engineering structures specifically configured to optimize factual context retrieval, preventing generative hallucination in targeted proposals."
   },
   {
     title: "Real-Time Driver Distraction Tracker",
     category: "Computer Vision Safety System",
     tools: "Python, OpenCV, TensorFlow, Streamlit",
-    image: "/images/DriverDistractionDetection.png",
+    image: "/images/DriverDistractionDetection.webp",
     description: "Built an offline convolutional neural network (CNN) model parsing video stream points to identify and trigger metrics signaling distraction. Optimized inference pipeline bottlenecks to stabilize latency metrics below 30ms per frame."
   },
 ];
