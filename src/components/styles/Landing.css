@@ -215,7 +215,8 @@
 
 .landing-info h2 {
   margin: 0;
-  margin-top: -20px;
+  /* Sit a little lower so it no longer covers the teal word above it. */
+  margin-top: 6px;
   margin-left: 20px;
   font-family: "Geist", sans-serif;
   font-weight: 600;
@@ -255,9 +256,11 @@ h2.landing-info-h2 {
   width: 100%;
   height: 120%;
   z-index: 3;
+  /* Softer fade so the teal word stays readable. */
   background-image: linear-gradient(0deg,
-      var(--backgroundColor) 40%,
-      rgba(0, 0, 0, 0) 110%);
+      var(--backgroundColor) 0%,
+      rgba(0, 0, 0, 0) 75%);
+  opacity: 0.7;
   top: 0;
   left: 0;
 }
