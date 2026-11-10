@@ -391,3 +391,12 @@
     line-height: 6.8rem;
   }
 }
+
+/* On desktop the 3D character is a fixed layer (z-index 11) that sits on the
+   left in this section, which used to cover the "WHAT I DO" title. Lift the
+   section above it so the title always reads. */
+@media only screen and (min-width: 1025px) {
+  .whatIDO {
+    z-index: 12;
+  }
+}
