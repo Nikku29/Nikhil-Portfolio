@@ -7,11 +7,10 @@ import handleResize from "./utils/resizeUtils";
 import {
   handleMouseMove,
   handleTouchEnd,
-  handleHeadRotation,
   handleTouchMove,
 } from "./utils/mouseUtils";
-import setAnimations from "./utils/animationUtils";
 import { setProgress } from "../Loading";
+import { gsap } from "gsap";
 
 const Scene = () => {
   const canvasDiv = useRef<HTMLDivElement | null>(null);
@@ -45,37 +44,37 @@ const Scene = () => {
       camera.zoom = 1.1;
       camera.updateProjectionMatrix();
 
-      let headBone: THREE.Object3D | null = null;
-      let screenLight: any | null = null;
-      let mixer: THREE.AnimationMixer;
+      let headPivot: THREE.Object3D | null = null;
 
-      const clock = new THREE.Clock();
       let onResize: (() => void) | null = null;
 
       const light = setLighting(scene);
       let progress = setProgress((value) => setLoading(value));
       const { loadCharacter } = setCharacter(renderer, scene, camera);
 
-      loadCharacter().then((gltf) => {
-        if (gltf) {
-          const animations = setAnimations(gltf);
-          hoverDivRef.current && animations.hover(gltf, hoverDivRef.current);
-          mixer = animations.mixer;
-          let character = gltf.scene;
+      loadCharacter()
+        .then(({ rig }) => {
+          const character = rig.model;
+          headPivot = rig.head;
           setChar(character);
+          // Start slightly lowered and hidden; the intro raises it into view.
+          character.visible = false;
           scene.add(character);
-          headBone = character.getObjectByName("spine006") || null;
-          screenLight = character.getObjectByName("screenlight") || null;
           progress.loaded().then(() => {
             setTimeout(() => {
               light.turnOnLights();
-              animations.startIntro();
-            }, 2500);
+              character.visible = true;
+              gsap.fromTo(
+                character.position,
+                { y: character.position.y - 1.5 },
+                { y: character.position.y, duration: 1.6, ease: "power3.out" }
+              );
+            }, 1200);
           });
-          onResize = () => handleResize(renderer, camera, canvasDiv, character);
+          onResize = () => handleResize(renderer, camera, canvasDiv, rig);
           window.addEventListener("resize", onResize);
-        }
-      });
+        })
+        .catch(() => progress.clear());
 
       let mouse = { x: 0, y: 0 },
         interpolation = { x: 0.1, y: 0.2 };
@@ -132,20 +131,24 @@ const Scene = () => {
       const animate = () => {
         frameId = requestAnimationFrame(animate);
         if (!isVisible) return;
-        if (headBone) {
-          handleHeadRotation(
-            headBone,
-            mouse.x,
-            mouse.y,
-            interpolation.x,
-            interpolation.y,
-            THREE.MathUtils.lerp
+        if (headPivot) {
+          // Near the top of the page the head turns to follow the cursor;
+          // further down it eases back to looking straight ahead.
+          const follow = window.scrollY < 200;
+          const yaw = follow ? THREE.MathUtils.clamp(mouse.x, -1, 1) * 0.5 : 0;
+          const pitch = follow
+            ? THREE.MathUtils.clamp(-mouse.y, -0.6, 1) * 0.22
+            : 0;
+          headPivot.rotation.y = THREE.MathUtils.lerp(
+            headPivot.rotation.y,
+            yaw,
+            interpolation.y * 0.6
           );
-          light.setPointLight(screenLight);
-        }
-        const delta = clock.getDelta();
-        if (mixer) {
-          mixer.update(delta);
+          headPivot.rotation.x = THREE.MathUtils.lerp(
+            headPivot.rotation.x,
+            pitch,
+            interpolation.x * 0.6
+          );
         }
         renderer.render(scene, camera);
       };

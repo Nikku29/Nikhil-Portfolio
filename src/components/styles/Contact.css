@@ -114,3 +114,15 @@ a.contact-social {
     width: calc(100% - 25px);
   }
 }
+.model-credit {
+  font-size: 12px;
+  font-weight: 300;
+  opacity: 0.6;
+  margin-top: 8px;
+  line-height: 1.4;
+}
+
+.model-credit a {
+  color: inherit;
+  text-decoration: underline;
+}

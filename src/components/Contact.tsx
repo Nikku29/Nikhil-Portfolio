@@ -63,6 +63,28 @@ const Contact = () => {
             <h5>
               <MdCopyright /> 2026
             </h5>
+            {/* Required by the model's CC BY 4.0 licence. */}
+            <p className="model-credit">
+              3D model "Kratos" by{" "}
+              <a
+                href="https://sketchfab.com/3d-models/kratos-aa6f51d38b154373a207d20801d1b3bc"
+                target="_blank"
+                rel="noopener noreferrer"
+                data-cursor="disable"
+              >
+                codyc2228
+              </a>
+              , licensed under{" "}
+              <a
+                href="https://creativecommons.org/licenses/by/4.0/"
+                target="_blank"
+                rel="noopener noreferrer"
+                data-cursor="disable"
+              >
+                CC BY 4.0
+              </a>
+              .
+            </p>
           </div>
         </div>
       </div>

@@ -1,12 +1,13 @@
 import * as THREE from "three";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { setCharTimeline, setAllTimeline } from "../../utils/GsapScroll";
+import type { CharacterRig } from "./character";
 
 export default function handleResize(
   renderer: THREE.WebGLRenderer,
   camera: THREE.PerspectiveCamera,
   canvasDiv: React.RefObject<HTMLDivElement>,
-  character: THREE.Object3D
+  rig: CharacterRig
 ) {
   if (!canvasDiv.current) return;
   let canvas3d = canvasDiv.current.getBoundingClientRect();
@@ -21,6 +22,6 @@ export default function handleResize(
       trigger.kill();
     }
   });
-  setCharTimeline(character, camera);
+  setCharTimeline(rig, camera);
   setAllTimeline();
 }
